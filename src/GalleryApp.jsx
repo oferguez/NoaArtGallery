@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react'
 
-function App() {
+console.log('Hey hey hey')
+
+function GalleryApp() {
+  console.log('Hey again')
+  
   const [artworks, setArtworks] = useState([])
   const [currentPath, setCurrentPath] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [selectedArt, setSelectedArt] = useState(null)
+  const [_sortOrder, _setSortOrder] = useState("asc")
 
   const GALLERY_JSON_URL = '/gallery/gallery.json'
-
+ 
   useEffect(() => {
     fetch(GALLERY_JSON_URL)
       .then(res => {
@@ -26,6 +31,12 @@ function App() {
     const path = item.path || ''
     return path.startsWith(currentPath)
       && path.split('/').length === (currentPath ? currentPath.split('/').length + 1 : 1)
+  }).sort((a, b) => {
+    if (a.type === 'folder' && b.type !== 'folder') return -1
+    if (a.type !== 'folder' && b.type === 'folder') return 1
+    const nameA = (a.title || a.name || '').toLowerCase()
+    const nameB = (b.title || b.name || '').toLowerCase()
+    return sortOrder === 'asc' ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA)
   })
 
   const openFolder = (folder) => {
@@ -39,6 +50,10 @@ function App() {
     setCurrentPath(parts.join('/'))
   }
 
+  const toggleSortOrder = () => {
+    setSortOrder(prev => (prev === 'asc' ? 'desc' : 'asc'))
+  }
+
   if (loading) return <div className="text-center p-10">Loading gallery...</div>
   if (error) return <div className="text-center text-red-500 p-10">{error.message}</div>
 
@@ -48,38 +63,64 @@ function App() {
         <div className="navbar-start">
           <span className="text-xl font-bold px-4">Art Gallery</span>
         </div>
-        <div className="navbar-end px-4">
+
+        <div className="navbar-end px-4 space-x-2">
           <button className="btn btn-sm" onClick={goUp} disabled={!currentPath}>..</button>
+          <button className="btn btn-sm" onClick={toggleSortOrder}>
+            Sort: {sortOrder === 'asc' ? 'A-Z' : 'Z-A'}
+          </button>
+        </div>
+
+      </div>
+
+      <div className="p-4">
+        {currentItems.some(item => item.type === 'folder') && <h2 className="text-lg font-semibold mb-2">Folders</h2>}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {currentItems.filter(item => item.type === 'folder').map((item, index) => (
+            <div
+              key={`folder-${index}`}
+              className="card bg-base-100 shadow-xl cursor-pointer hover:shadow-2xl"
+              onClick={() => openFolder(item.name)}
+            >
+              <figure className="h-60 overflow-hidden">
+                <img
+                  src="/folder-icon.svg"
+                  alt={item.name}
+                  className="object-cover w-full h-full"
+                />
+              </figure>
+              <div className="card-body">
+                <h2 className="card-title">{item.name}</h2>
+                {item.description && <p>{item.description}</p>}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
-      <div className="p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {currentItems.map((item, index) => {
-          const isFolder = item.type === 'folder'
-          const thumbSrc = isFolder ? "/folder-icon.svg" : `${item.url}`
-
-          return (
+      <div className="p-4">
+        {currentItems.some(item => item.type !== 'folder') && <h2 className="text-lg font-semibold mb-2">Artworks</h2>}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {currentItems.filter(item => item.type !== 'folder').map((item, index) => (
             <div
-              key={index}
+              key={`art-${index}`}
               className="card bg-base-100 shadow-xl cursor-pointer hover:shadow-2xl"
-              onClick={() => isFolder ? openFolder(item.name) : setSelectedArt(item)}
+              onClick={() => setSelectedArt(item)}
             >
-
               <figure className="h-60 overflow-hidden">
                 <img
-                  src={thumbSrc}
+                  src={item.url}
                   alt={item.title || item.name}
                   className="object-cover w-full h-full"
                 />
               </figure>
-
               <div className="card-body">
                 <h2 className="card-title">{item.title || item.name}</h2>
                 {item.description && <p>{item.description}</p>}
               </div>
             </div>
-          )
-        })}
+          ))}
+        </div>
       </div>
 
       {selectedArt && (
@@ -98,4 +139,4 @@ function App() {
   )
 }
 
-export default App
+export default GalleryApp
