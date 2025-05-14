@@ -1,101 +1,72 @@
-import { useEffect, useState } from 'react'
-
-console.log('Hey hey hey')
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable no-console */
+import { useEffect, useState } from 'react';
 
 function GalleryApp() {
-  console.log('Hey again')
   
-  const [artworks, setArtworks] = useState([])
-  const [currentPath, setCurrentPath] = useState('')
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [selectedArt, setSelectedArt] = useState(null)
-  const [_sortOrder, _setSortOrder] = useState("asc")
+  const [artworks, setArtworks] = useState([]);
+  const [currentPath, setCurrentPath] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [selectedArt, setSelectedArt] = useState(null);
+  const [sortOrder, setSortOrder] = useState('asc');
 
-  const GALLERY_JSON_URL = '/gallery/gallery.json'
+  const GALLERY_JSON_URL = '/gallery/gallery.json';
  
   useEffect(() => {
     fetch(GALLERY_JSON_URL)
       .then(res => {
-        if (!res.ok) throw new Error('Failed to load gallery.')
-        return res.json()
+        if (!res.ok) throw new Error('Failed to load gallery.');
+        return res.json();
       })
       .then(setArtworks)
       .catch(setError)
-      .finally(() => setLoading(false))
-  }, [])
+      .finally(() => setLoading(false));
+  }, []);
 
-  const folders = [...new Set(artworks.map(item => item.path?.split('/')[0]).filter(p => p && p !== currentPath))]
+  //const folders = [...new Set(artworks.map(item => item.path?.split('/')[0]).filter(p => p && p !== currentPath))];
 
   const currentItems = artworks.filter(item => {
-    const path = item.path || ''
+    const path = item.path || '';
     return path.startsWith(currentPath)
-      && path.split('/').length === (currentPath ? currentPath.split('/').length + 1 : 1)
+      && path.split('/').length === (currentPath ? currentPath.split('/').length + 1 : 1);
   }).sort((a, b) => {
-    if (a.type === 'folder' && b.type !== 'folder') return -1
-    if (a.type !== 'folder' && b.type === 'folder') return 1
-    const nameA = (a.title || a.name || '').toLowerCase()
-    const nameB = (b.title || b.name || '').toLowerCase()
-    return sortOrder === 'asc' ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA)
-  })
+    if (a.type === 'folder' && b.type !== 'folder') return -1;
+    if (a.type !== 'folder' && b.type === 'folder') return 1;
+    const nameA = (a.title || a.name || '').toLowerCase();
+    const nameB = (b.title || b.name || '').toLowerCase();
+    return sortOrder === 'asc' ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+  });
 
   const openFolder = (folder) => {
-    setCurrentPath(prev => prev ? `${prev}/${folder}` : folder)
-  }
+    setCurrentPath(prev => prev ? `${prev}/${folder}` : folder);
+  };
 
   const goUp = () => {
-    if (!currentPath) return
-    const parts = currentPath.split('/')
-    parts.pop()
-    setCurrentPath(parts.join('/'))
-  }
+    if (!currentPath) return;
+    const parts = currentPath.split('/');
+    parts.pop();
+    setCurrentPath(parts.join('/'));
+  };
 
   const toggleSortOrder = () => {
-    setSortOrder(prev => (prev === 'asc' ? 'desc' : 'asc'))
-  }
+    setSortOrder(prev => (prev === 'asc' ? 'desc' : 'asc'));
+  };
 
-  if (loading) return <div className="text-center p-10">Loading gallery...</div>
-  if (error) return <div className="text-center text-red-500 p-10">{error.message}</div>
+  if (loading) return <div className="text-center p-10">Loading gallery...</div>;
+  if (error) return <div className="text-center text-red-500 p-10">{error.message}</div>;
 
   return (
     <div data-theme="light" className="min-h-screen bg-base-200 text-base-content">
       <div className="navbar bg-base-100 shadow">
         <div className="navbar-start">
           <span className="text-xl font-bold px-4">Art Gallery</span>
-        </div>
-
-        <div className="navbar-end px-4 space-x-2">
-          <button className="btn btn-sm" onClick={goUp} disabled={!currentPath}>..</button>
+          <button className="btn btn-sm" onClick={goUp} disabled={!currentPath}>↑</button>
           <button className="btn btn-sm" onClick={toggleSortOrder}>
             Sort: {sortOrder === 'asc' ? 'A-Z' : 'Z-A'}
           </button>
         </div>
 
-      </div>
-
-      <div className="p-4">
-        {currentItems.some(item => item.type === 'folder') && <h2 className="text-lg font-semibold mb-2">Folders</h2>}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {currentItems.filter(item => item.type === 'folder').map((item, index) => (
-            <div
-              key={`folder-${index}`}
-              className="card bg-base-100 shadow-xl cursor-pointer hover:shadow-2xl"
-              onClick={() => openFolder(item.name)}
-            >
-              <figure className="h-60 overflow-hidden">
-                <img
-                  src="/folder-icon.svg"
-                  alt={item.name}
-                  className="object-cover w-full h-full"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">{item.name}</h2>
-                {item.description && <p>{item.description}</p>}
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
 
       <div className="p-4">
@@ -106,6 +77,7 @@ function GalleryApp() {
               key={`art-${index}`}
               className="card bg-base-100 shadow-xl cursor-pointer hover:shadow-2xl"
               onClick={() => setSelectedArt(item)}
+              onKeyDown={() => setSelectedArt(item)}
             >
               <figure className="h-60 overflow-hidden">
                 <img
@@ -116,6 +88,32 @@ function GalleryApp() {
               </figure>
               <div className="card-body">
                 <h2 className="card-title">{item.title || item.name}</h2>
+                {item.description && <p>{item.description}</p>}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="p-4">
+        {currentItems.some(item => item.type === 'folder') && <h2 className="text-lg font-semibold mb-2">Folders</h2>}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {currentItems.filter(item => item.type === 'folder').map((item, index) => (
+            <div
+              key={`folder-${index}`}
+              className="card bg-base-100 shadow-xl cursor-pointer hover:shadow-2xl"
+              onClick={() => openFolder(item.name)}
+              onKeyDown={() => openFolder(item.name)}
+            >
+              <figure className="h-60 overflow-hidden">
+                <img
+                  src="/folder-icon.svg"
+                  alt={item.name}
+                  className="w-1/3 h-auto object-contain" 
+                />
+              </figure>
+              <div className="card-body">
+                <h2 className="card-title">{item.name}</h2>
                 {item.description && <p>{item.description}</p>}
               </div>
             </div>
@@ -136,7 +134,7 @@ function GalleryApp() {
         </div>
       )}
     </div>
-  )
+  );
 }
 
-export default GalleryApp
+export default GalleryApp;
