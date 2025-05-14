@@ -1,18 +1,19 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable no-console */
 import { useEffect, useState } from 'react';
+const BASE_FOLDER = '/gallery';
+const GALLERY_JSON_URL = '/gallery/gallery.json';
 
 function GalleryApp() {
-  
+
   const [artworks, setArtworks] = useState([]);
-  const [currentPath, setCurrentPath] = useState('');
+  const [currentPath, setCurrentPath] = useState(BASE_FOLDER);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedArt, setSelectedArt] = useState(null);
   const [sortOrder, setSortOrder] = useState('asc');
 
-  const GALLERY_JSON_URL = '/gallery/gallery.json';
- 
+
   useEffect(() => {
     fetch(GALLERY_JSON_URL)
       .then(res => {
@@ -26,8 +27,18 @@ function GalleryApp() {
 
   //const folders = [...new Set(artworks.map(item => item.path?.split('/')[0]).filter(p => p && p !== currentPath))];
 
+  artworks.map(o => 
+    {
+      if (o.type === 'art') {
+        console.log(`ART item: ${o.url} , l: ${o.url?.split('/').length}`);
+      } else {
+        console.log(`FOLDER item: ${o.path} , l: ${o.path?.split('/').length}`);
+      }
+    }
+  );
+
   const currentItems = artworks.filter(item => {
-    const path = item.path || '';
+    const path = item.path || item.url || '';
     return path.startsWith(currentPath)
       && path.split('/').length === (currentPath ? currentPath.split('/').length + 1 : 1);
   }).sort((a, b) => {
@@ -58,11 +69,16 @@ function GalleryApp() {
 
   return (
     <div data-theme="light" className="min-h-screen bg-base-200 text-base-content">
-      <div className="navbar bg-base-100 shadow">
+      <div className="navbar bg-base-100 shadow-md">
         <div className="navbar-start">
-          <span className="text-xl font-bold px-4">Art Gallery</span>
-          <button className="btn btn-sm" onClick={goUp} disabled={!currentPath}>↑</button>
-          <button className="btn btn-sm" onClick={toggleSortOrder}>
+          <span className="text-xl font-bold px-8">Art Gallery: {currentPath}</span>
+          {currentPath !== BASE_FOLDER && <button
+            className="btn btn-lg font-bold text-lg"
+            onClick={goUp}            
+          >
+            <img src="FolderUp.png" alt="Go Up" className="h-3/4 w-auto" />
+          </button>}
+          <button className="btn btn-lg drop-shadow-lg" onClick={toggleSortOrder}>
             Sort: {sortOrder === 'asc' ? 'A-Z' : 'Z-A'}
           </button>
         </div>
@@ -109,7 +125,7 @@ function GalleryApp() {
                 <img
                   src="/folder-icon.svg"
                   alt={item.name}
-                  className="w-1/3 h-auto object-contain" 
+                  className="w-1/3 h-auto object-contain"
                 />
               </figure>
               <div className="card-body">

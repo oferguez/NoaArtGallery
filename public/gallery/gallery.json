@@ -19,12 +19,12 @@
   { "type": "art", "url": "/gallery/Spring/work18.jpeg", "title": "The Little Prince in Boots", "description": "Pencil" },  
   { "type": "art", "url": "/gallery/Autumn/work19.jpeg", "title": "Open Heart Surgery", "description": "Water Colours"},
 
-  { "type": "folder", "name": "Winter", "path": "Winter" },
-  { "type": "folder", "name": "Spring", "path": "Spring" },
-  { "type": "folder", "name": "Autumn", "path": "Autumn" },
-  { "type": "folder", "name": "Summer", "path": "Summer" },
-  { "type": "folder", "name": "August", "path": "Summer/August" },
-  { "type": "folder", "name": "July", "path": "Summer/July" }
+  { "type": "folder", "name": "Winter", "path": "/gallery/Winter" },
+  { "type": "folder", "name": "Spring", "path": "/gallery/Spring" },
+  { "type": "folder", "name": "Autumn", "path": "/gallery/Autumn" },
+  { "type": "folder", "name": "Summer", "path": "/gallery/Summer" },
+  { "type": "folder", "name": "August", "path": "/gallery/Summer/August" },
+  { "type": "folder", "name": "July", "path": "/gallery/Summer/July" }
 
 
 ]
