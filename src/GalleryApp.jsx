@@ -125,7 +125,7 @@ function GalleryApp() {
             >
               <figure className="h-60 overflow-hidden">
                 <img
-                  src="/folder-icon.svg"
+                  src={'/folder-icon-2.svg'}
                   alt={item.name}
                   className="w-1/3 h-auto object-contain"
                 />
