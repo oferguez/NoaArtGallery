@@ -25,18 +25,8 @@ function GalleryApp() {
       .finally(() => setLoading(false));
   }, []);
 
-  //const folders = [...new Set(artworks.map(item => item.path?.split('/')[0]).filter(p => p && p !== currentPath))];
-
-  artworks.map(o => {
-    if (o.type === 'art') {
-      console.log(`ART item: ${o.url} , l: ${o.url?.split('/').length}`);
-    } else {
-      console.log(`FOLDER item: ${o.path} , l: ${o.path?.split('/').length}`);
-    }
-  }
-  );
-
   const currentItems = artworks.filter(item => {
+
     const path = item.path || item.url || '';
     return path.startsWith(currentPath)
       && path.split('/').length === (currentPath ? currentPath.split('/').length + 1 : 1);
@@ -129,9 +119,9 @@ function GalleryApp() {
 
       <div className="p-4">
         {currentItems.some(item => item.type === 'folder') && (
-        <div className="flex justify-center items-center w-full mb-2">
-          <h3 className="text-3xl font-bold text-center w-full border-2 border-primary pb-2 mb-8">Folders</h3>
-        </div>
+          <div className="flex justify-center items-center w-full mb-2">
+            <h3 className="text-3xl font-bold text-center w-full border-2 border-primary pb-2 mb-8">Folders</h3>
+          </div>
         )}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {currentItems.filter(item => item.type === 'folder').map((item, index) => (
