@@ -67,12 +67,14 @@ function GalleryApp() {
   if (loading) return <div className="text-center p-10">Loading gallery...</div>;
   if (error) return <div className="text-center text-red-500 p-10">{error.message}</div>;
 
+  const baseFolder = currentPath === BASE_FOLDER;
+
   return (
     <div data-theme="light" className="min-h-screen bg-base-200 text-base-content">
       <div className="navbar bg-base-100 shadow-md">
         <div className="navbar-start">
-          <span className="text-xl font-bold px-8">Art Gallery: {currentPath}</span>
-          {currentPath !== BASE_FOLDER && <button
+          <span className="text-xl font-bold px-8">Art Gallery{baseFolder ? '' : ': ' } {currentPath.slice(9)}</span>
+          {!baseFolder && <button
             className="btn btn-lg font-bold text-lg"
             onClick={goUp}            
           >
