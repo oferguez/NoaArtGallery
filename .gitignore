@@ -1,3 +1,6 @@
+/obs
+*.patch
+
 # dependencies
 /node_modules
 /.pnp
