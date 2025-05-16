@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable no-console */
 import { useEffect, useState } from 'react';
 const BASE_FOLDER = '/gallery';
 const GALLERY_JSON_URL = '/gallery/gallery.json';
@@ -82,7 +81,7 @@ function GalleryApp() {
       {baseFolder && (
         <div className="flex flex-col items-center py-8">
           <img src="/logo.jpeg" alt="Logo" className="w-40 h-40 object-contain shadow-lg mb-4" />
-          <h1 className="text-3xl font-bold mb-2">Welcome to Noa's Art Gallery!</h1>
+          <h1 className="text-3xl font-bold mb-2">Welcome to Noa&apos;s Art Gallery!</h1>
           <p className="text-lg text-gray-600">Explore artworks and curated collections.</p>
         </div>
       )}
