@@ -12,10 +12,9 @@ function GalleryApp() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedArt, setSelectedArt] = useState(null);
-  const [sortOrder, setSortOrder] = useState('asc');
   const [collectionHierarchy, setCollectionHierarchy] = useState({});
 
-  const themes = ["light", "dark", "cupcake", "bumblebee", "emerald", "corporate", "synthwave", "retro", "cyberpunk", "valentine", "halloween", "garden", "forest", "aqua", "lofi", "pastel", "fantasy", "wireframe", "black", "luxury", "dracula", "cmyk", "autumn", "business", "acid", "lemonade", "night", "coffee", "winter"];
+  const themes = ['light', 'dark', 'cupcake', 'bumblebee', 'emerald', 'corporate', 'synthwave', 'retro', 'cyberpunk', 'valentine', 'halloween', 'garden', 'forest', 'aqua', 'lofi', 'pastel', 'fantasy', 'wireframe', 'black', 'luxury', 'dracula', 'cmyk', 'autumn', 'business', 'acid', 'lemonade', 'night', 'coffee', 'winter'];
 
   useEffect(() => {
     fetch(GALLERY_JSON_URL)
@@ -26,8 +25,8 @@ function GalleryApp() {
       .then(data => {
         setArtworks(data);
         const hierarchy = {};
-        data.forEach(item => {
-          const parts = item.path.split('/');
+        data.filter(item=>item.type==='folder').forEach(item => {
+          const parts = (item.path||item.url).split('/');
           let current = hierarchy;
           parts.forEach(part => {
             if (!current[part]) current[part] = {};
@@ -40,7 +39,7 @@ function GalleryApp() {
       .finally(() => setLoading(false));
   }, []);
 
-  const currentArtworks = artworks.filter(item => item.type !== 'folder' && item.url.startsWith(currentPath) && item.url.split('/').length === (currentPath.split('/').length + 1));
+  const currentArtworks = artworks.filter(item => item.type === 'art' && item.url.startsWith(currentPath) && item.url.split('/').length === (currentPath.split('/').length + 1));
 
   const openFolder = (folder) => {
     setCurrentPath(prev => prev ? `${prev}/${folder}` : folder);
@@ -51,10 +50,6 @@ function GalleryApp() {
     const parts = currentPath.split('/');
     parts.pop();
     setCurrentPath(parts.join('/'));
-  };
-
-  const toggleSortOrder = () => {
-    setSortOrder(prev => (prev === 'asc' ? 'desc' : 'asc'));
   };
 
   const changeTheme = (theme) => {
@@ -86,16 +81,18 @@ function GalleryApp() {
         <div className="navbar-start">
           <span className="text-xl font-bold px-8">Art Gallery{baseFolder ? '' : ': '} {currentPath.slice(9)}</span>
           <div className="flex items-center gap-4">
-            {!baseFolder && <button
+
+            {/* {!baseFolder && <button
               className="btn btn-lg font-bold text-lg transition-transform duration-200 hover:scale-110 hover:bg-blue-200 hover:text-black hover:shadow-xl"
               onClick={goUp}
             >
               Parent Collection
               <img src="FolderUp.png" alt="Go Up" className="h-3/4 w-auto ml-2" />
-            </button>}
-            <div className="dropdown dropdown-hover">
-              <label tabIndex={0} className="btn btn-lg">Select Theme</label>
-              <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+            </button>} */}
+
+            <div id="themePicker" className="dropdown dropdown-hover">
+              <label htmlFor="themePicker" className="btn btn-lg">Select Theme</label>
+              <ul className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
                 {themes.map((theme) => (
                   <li key={theme}>
                     <button onClick={() => changeTheme(theme)}>{theme}</button>
@@ -103,9 +100,9 @@ function GalleryApp() {
                 ))}
               </ul>
             </div>
-            <div className="dropdown dropdown-hover">
-              <label tabIndex={0} className="btn btn-lg">Select Collection</label>
-              <div tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+            <div id="collectionSelector" className="dropdown dropdown-hover">
+              <label htmlFor="collectionSelector" className="btn btn-lg">Select Collection</label>
+              <div className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
                 {renderTree(collectionHierarchy)}
               </div>
             </div>
@@ -122,11 +119,13 @@ function GalleryApp() {
       )}
 
       <div className="p-4">
-        {currentArtworks.length > 0 && (
+
+        {/* {currentArtworks.length > 0 && (
           <div className="flex justify-center items-center w-full mb-2">
             <h3 className="text-3xl font-bold text-center w-full border-2 border-primary pb-2 mb-8">Artworks</h3>
           </div>
-        )}
+        )} */}
+
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {currentArtworks.map((item, index) => (
             <Artwork key={`art-${index}`} item={item} onClick={() => setSelectedArt(item)} />
