@@ -67,6 +67,7 @@ export default defineConfig([{
     },
 
     rules: {
+        'no-console': 'off',
         'react/prop-types': 'warn',
         'react/react-in-jsx-scope': 'off',
         'react-hooks/rules-of-hooks': 'error',
@@ -94,7 +95,6 @@ export default defineConfig([{
         }],
 
         'import/no-unresolved': 'off',
-        'no-console': 'warn',
 
         'no-unused-vars': ['warn', {
             argsIgnorePattern: '^_',
