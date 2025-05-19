@@ -31,11 +31,11 @@ const PrimeGalleryApp = () => {
     document.head.appendChild(link);
   }, [theme]);
 
-  const responsiveOptions = [
-    { breakpoint: '1024px', numVisible: 5 },
-    { breakpoint: '768px', numVisible: 3 },
-    { breakpoint: '560px', numVisible: 1 }
-  ];
+  // const responsiveOptions = [
+  //   { breakpoint: '1024px', numVisible: 5 },
+  //   { breakpoint: '768px', numVisible: 3 },
+  //   { breakpoint: '560px', numVisible: 1 }
+  // ];
 
   const itemTemplate = (item) => {
     return (
@@ -49,8 +49,6 @@ const PrimeGalleryApp = () => {
           src={item.itemImageSrc}
           alt={item.alt}
           style={{maxWidth: '100%', maxHeight: '70vh', height: 'auto', objectFit: 'contain', display: 'block', margin: '0 auto'}}
-          
-          //style={{ width: '100%', height: 'auto', maxHeight: '70vh', objectFit: 'contain', display: 'block' }}
         />
       </button>
     );
@@ -58,7 +56,17 @@ const PrimeGalleryApp = () => {
 
   const thumbnailTemplate = (item) => {
     return <img src={item.thumbnailImageSrc} alt={item.alt} 
-    style={{ width: '20%', objectFit: 'cover' }} 
+    style={{
+      height: '70px',
+      width: 'auto',
+      maxWidth: '100%',
+      objectFit: 'cover',
+      display: 'block',
+      margin: '0 auto'
+    }}
+    
+    //style={{ width: '100%', height: '80px', objectFit: 'cover' }}
+
     />;
   };
 
@@ -80,16 +88,25 @@ const PrimeGalleryApp = () => {
       </div>
       <Galleria
         value={images}
-        responsiveOptions={responsiveOptions}
+        //responsiveOptions={responsiveOptions}
         // numVisible={3}
-        style={{ margin: '0 auto'}}
+        style={{ 
+          margin: '0 auto',  
+          width: '1024px'
+        }}
         item={itemTemplate}
         thumbnail={thumbnailTemplate}
+        thumbnailsStyle={{
+          padding: '0',
+          margin: '0 auto',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '0.5rem'
+        }}
+        
         showItemNavigators
         showThumbnails
-        containerStyle={{ textAlign: 'center' }}
-        thumbnailsPosition="bottom"
-        //thumbnailsStyle={{ maxWidth: '100%' }}
       />
     </div>
   );
