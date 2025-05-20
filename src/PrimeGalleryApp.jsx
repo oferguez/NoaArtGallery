@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
-import './gallery.css'
+import './gallery.css';
 
 const PrimeGalleryApp = () => {
   const [images, setImages] = useState([]);
@@ -56,7 +56,7 @@ const PrimeGalleryApp = () => {
             objectFit: 'contain', 
             display: 'block', 
             margin: '0 auto',
-            marginBottom: '3px' }}
+            marginBottom: '3px' }}          
         />
       </button>
     );
