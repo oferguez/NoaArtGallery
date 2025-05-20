@@ -1,6 +1,8 @@
 import { Dropdown } from 'primereact/dropdown';
 import { Galleria } from 'primereact/galleria';
 import React, { useState, useEffect } from 'react';
+
+import './gallery.css'
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 
@@ -19,7 +21,7 @@ const PrimeGalleryApp = () => {
         setImages(data);
       })
       .catch((err) => console.error(err));
-  }, []);   
+  }, []);
 
   useEffect(() => {
     const existing = document.getElementById('theme-css');
@@ -48,27 +50,19 @@ const PrimeGalleryApp = () => {
         <img
           src={item.itemImageSrc}
           alt={item.alt}
-          style={{maxWidth: '100%', maxHeight: '70vh', height: 'auto', objectFit: 'contain', display: 'block', margin: '0 auto'}}
+          style={{ maxWidth: '100%', maxHeight: '70vh', height: 'auto', objectFit: 'contain', display: 'block', margin: '0 auto' }}
         />
       </button>
     );
   };
 
-  const thumbnailTemplate = (item) => {
-    return <img src={item.thumbnailImageSrc} alt={item.alt} 
-    style={{
-      height: '70px',
-      width: 'auto',
-      maxWidth: '100%',
-      objectFit: 'cover',
-      display: 'block',
-      margin: '0 auto'
-    }}
-    
-    //style={{ width: '100%', height: '80px', objectFit: 'cover' }}
-
-    />;
-  };
+  const thumbnailTemplate = (item) => (
+    <img
+      src={item.thumbnailImageSrc}
+      alt={item.alt}
+      style={{}}
+    />
+  );
 
   const handleImageClick = (item) => {
     alert(`Clicked: ${item.alt}`);
@@ -81,35 +75,43 @@ const PrimeGalleryApp = () => {
     { label: 'Luna Amber', value: 'luna-amber' },
   ];
 
+  // return (
+  //   <div className="card">
+  //     <Galleria
+  //       value={images}
+  //       responsiveOptions={responsiveOptions}
+  //       numVisible={5}
+  //       style={{ maxWidth: '640px' }}
+  //       item={itemTemplate}
+  //       thumbnail={thumbnailTemplate}
+  //     />
+  //   </div>
+  // );
+
+
   return (
     <div className="p-4">
       <div className="mb-4">
         <Dropdown value={theme} options={themeOptions} onChange={(e) => setTheme(e.value)} placeholder="Select Theme" />
       </div>
-      <Galleria
-        value={images}
-        //responsiveOptions={responsiveOptions}
-        // numVisible={3}
-        style={{ 
-          margin: '0 auto',  
-          width: '1024px'
-        }}
-        item={itemTemplate}
-        thumbnail={thumbnailTemplate}
-        thumbnailsStyle={{
-          padding: '0',
-          margin: '0 auto',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: '0.5rem'
-        }}
-        
-        showItemNavigators
-        showThumbnails
-      />
+      <div className="card">
+        <Galleria
+          value={images}
+          //responsiveOptions={responsiveOptions}
+          numVisible={10}
+          style={{
+            margin: '0 auto',
+            width: '1024px'
+          }}
+          item={itemTemplate}
+          thumbnail={thumbnailTemplate}
+          showItemNavigators
+          showThumbnails
+        />
+      </div>
     </div>
   );
+
 };
 
 export default PrimeGalleryApp;
