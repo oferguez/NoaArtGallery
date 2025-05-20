@@ -2,9 +2,9 @@ import { Dropdown } from 'primereact/dropdown';
 import { Galleria } from 'primereact/galleria';
 import React, { useState, useEffect } from 'react';
 
-import './gallery.css'
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
+import './gallery.css'
 
 const PrimeGalleryApp = () => {
   const [images, setImages] = useState([]);
@@ -50,7 +50,13 @@ const PrimeGalleryApp = () => {
         <img
           src={item.itemImageSrc}
           alt={item.alt}
-          style={{ maxWidth: '100%', maxHeight: '70vh', height: 'auto', objectFit: 'contain', display: 'block', margin: '0 auto' }}
+          style={{ maxWidth: '100%', 
+            maxHeight: '70vh', 
+            height: 'auto', 
+            objectFit: 'contain', 
+            display: 'block', 
+            margin: '0 auto',
+            marginBottom: '3px' }}
         />
       </button>
     );
