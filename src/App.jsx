@@ -29,7 +29,20 @@ export default function BasicDemo() {
 
   const itemTemplate = (item) => {
     return (
-      <img src={item.itemImageSrc} alt={item.alt} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+      <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <img 
+          src={item.itemImageSrc} 
+          alt={item.alt} 
+          style={{ 
+            maxWidth: '100%', 
+            maxHeight: '100%', 
+            width: '100%', 
+            height: '100%', 
+            objectFit: 'contain',
+            display: 'block',
+          }} 
+        />
+      </div>
     );
   };
 
@@ -50,7 +63,7 @@ export default function BasicDemo() {
   };
 
   return (
-    <div className="card" style={{ height: '70vh', width: '70vw', margin: '5vh auto' }}>
+    <div className="card" style={{ height: '50vh', width: '50vw', margin: '1vh auto', border: '4px solid purple', }}>
       <Galleria
         value={images}
         responsiveOptions={responsiveOptions}
@@ -59,7 +72,8 @@ export default function BasicDemo() {
         item={itemTemplate}
         thumbnail={thumbnailTemplate}
         showThumbnails={true}
-        showIndicators
+        showIndicators={false}
+        
         containerStyle={{ height: '100%' }}
         containerClassName="custom-galleria"
       />
