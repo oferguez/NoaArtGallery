@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Galleria } from 'primereact/galleria';
 import { PhotoService } from './service/PhotoService';
+const maxWidth = '50vw'
+const maxHeight = '50vh'
 
 export default function BasicDemo() {
   const [images, setImages] = useState(null);
@@ -30,40 +32,20 @@ export default function BasicDemo() {
   const itemTemplate = (item) => {
     return (
       <div style={{
-        maxHeight: '50vh', maxWidth: '50vw',
-        width: '100%', height: '100%', display: 'flex', alignItems: 'left', justifyContent: 'left', overflow: 'hidden',
-        border: '5px dashed green',
-
-      }}>
-        PARENT  AND MORE   
-
-        {/* <div
-          style={{
-            // width: '200px',
-            height: '400px',
-
-            width: '100%',
-            maxWidth: '200px',       // maximum width
-            maxHeight: '300px',
-            aspectRatio: '1 / 1',    // 200 / 400 = 1:2 aspect ratio
-
-            border: '2px solid blue',
-            backgroundColor: 'cyan',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        > 200X400</div> */}
+        maxHeight: maxHeight, maxWidth: maxWidth, // had to repeat abolsut size as used by the wrapping card, so image will be resized propery
+        width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden',
+        margin: '1vh auto'
+        // border: '5px dashed green'
+        }}>
 
         <img
           src={item.itemImageSrc}
           alt={item.alt}
           style={{
-            maxWidth: '100%',
-            maxHeight: '100%',
+            maxWidth: maxWidth,
+            maxHeight: maxHeight,
             objectFit: 'contain',
-            display: 'flex',
-            boxSizing: 'border-box',
+            display: 'flex'
           }}
         />
       </div>
@@ -79,8 +61,8 @@ export default function BasicDemo() {
           border: '2px solid yellow',
           margin: '2px',
           width: '90%',
-          height: '90%',
-          objectFit1: 'cover'
+          height: '100%',
+          objectFit: 'contain'
         }}
       />
     );
@@ -90,20 +72,18 @@ export default function BasicDemo() {
     <div className="card" style={{
       height: '100%',
       width: '100%',
-      maxHeight: '50vh',
-      maxWidth: '50vw',
+      maxHeight: maxHeight,
+      maxWidth: maxWidth,
       margin: '1vh auto',
-      border: '4px solid purple'
+      // border: '4px solid purple'
     }}>
       <Galleria
         value={images}
         responsiveOptions={responsiveOptions}
         numVisible={5}
         style={{
-          height: '20%',
+          height: '100%',
           width: '100%',
-          maxHeight_1: '40vh',
-          maxWidth_1: '40vw'
         }}
         item={itemTemplate}
         thumbnail={thumbnailTemplate}
