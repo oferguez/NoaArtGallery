@@ -13,7 +13,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-.card {
+/*👉.card {
     background: var(--surface-card);
     padding: 0;
     border-radius: 10px;
@@ -32,4 +32,4 @@ body {
 
 .custom-galleria .p-galleria-item-wrapper {
     height: 85% !important;
-}
+}👈*/

@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Galleria } from 'primereact/galleria';
 import { PhotoService } from './service/PhotoService';
-const maxWidth = '50vw'
-const maxHeight = '50vh'
+import './galleria-thumbbar.css';
+
+
+const maxWidth = '60vw'
+const maxHeight = '70vh'
 
 export default function BasicDemo() {
   const [images, setImages] = useState(null);
   const responsiveOptions = [
     {
-      breakpoint: '1500px',
+      breakpoint: '1280px',
       numVisible: 8,
     },
     {
@@ -29,6 +32,7 @@ export default function BasicDemo() {
     PhotoService.getImages().then((data) => setImages(data));
   }, []);
 
+  // Selected Image View 
   const itemTemplate = (item) => {
     return (
       <div style={{
@@ -52,6 +56,7 @@ export default function BasicDemo() {
     );
   };
 
+  // Thumbnail Image View
   const thumbnailTemplate = (item) => {
     return (
       <img
@@ -62,7 +67,8 @@ export default function BasicDemo() {
           margin: '2px',
           width: '90%',
           height: '100%',
-          objectFit: 'contain'
+          objectFit: 'contain',
+          maxHeight: '13vh'  // must be aligned with max thumbnail height in galleria-thumbbar.css
         }}
       />
     );

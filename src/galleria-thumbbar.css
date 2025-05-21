@@ -1,0 +1,30 @@
+/* galleria-thumbbar.css */
+.p-galleria-thumbnail-items {
+  /* overall bar */
+  height: 15vh;          /* <— your desired strip height */
+  align-items: center;
+  display: flex;
+}
+
+.p-galleria-thumbnail-item {
+  /* container around each thumb */
+  height: 100%;
+  width: 100%;           /* choose what looks good */
+  display: flex;
+  /* opacity: 0.7; */
+}
+
+.p-galleria-thumbnail-image {
+  /* the <img> PrimeReact injects */
+  height: 100%;
+  width: 100%;
+  display: flex;
+  object-fit: contain;    
+}
+
+
+.p-galleria .p-galleria-thumbnail-container {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 0.5rem 0.25rem;
+    /* padding: 0; */
+}
