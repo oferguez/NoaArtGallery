@@ -18,3 +18,4 @@ root.render(
     </PrimeReactProvider>
 </React.StrictMode>
 );
+
