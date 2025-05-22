@@ -7,7 +7,6 @@ import 'primereact/resources/primereact.css';
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
 
 import './index.css';
-import './flags.css';
 import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
