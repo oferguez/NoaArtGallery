@@ -23,6 +23,9 @@ const compat = new FlatCompat({
 
 export default defineConfig([{
     files: ['**/*.js', '**/*.jsx', '**/*.mjs'],  // Add this line to include JSX files    
+    ignores: [
+        'obs/',
+    ],
     extends: fixupConfigRules(compat.extends(
         'eslint:recommended',
         'plugin:react/recommended',
