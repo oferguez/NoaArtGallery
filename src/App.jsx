@@ -40,6 +40,7 @@ export default function BasicDemo() {
           overflow: 'hidden',
           cursor: 'pointer',
           background: "#fff",
+          marginBottom: "1vh" 
         }}
         onClick={() => { setSelectedImage(item); setShowDialog(true); }}
         title="Click to forward image to printing provider"
@@ -73,7 +74,7 @@ export default function BasicDemo() {
             border: '2px solid yellow',
             margin: '2px',
             objectFit: 'contain',
-            maxHeight: 70,
+            maxHeight: "10vh",
             maxWidth: 120,
             width: "auto",
             height: "auto",
@@ -131,7 +132,7 @@ export default function BasicDemo() {
         style={{
           height: "10vh",
           minHeight: 90,
-          maxHeight: 160,
+          maxHeight: "10vh",
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
@@ -139,6 +140,8 @@ export default function BasicDemo() {
           gap: 24,
           background: "rgba(255,255,255,0.98)",
           textAlign: "center",
+          // border: "6px solid rgb(43, 36, 170)", // for debugging, Noticeable border
+          margin: "1vh",
         }}
       >
         <span style={{ fontWeight: 700, fontSize: 32, color: "#475569" }}>{ARTIST_NAME}</span>
@@ -167,7 +170,8 @@ export default function BasicDemo() {
           alignItems: "flex-start",
           justifyContent: "center",
           width: "100%",
-          boxSizing: "border-box"
+          boxSizing: "border-box",
+          // border: "6px solid #8e24aa", // for debugging, Noticeable purple border
         }}
       >
         {images &&
