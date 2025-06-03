@@ -198,11 +198,14 @@ export default function BasicDemo() {
         style={{
           flex: 1,
           display: 'flex',
-          alignItems: 'flex-start',
-          justifyContent: 'center',
+          flexDirection: 'column',
+          alignItems: 'stretch',
+          justifyContent: 'flex-end',
           width: '100%',
+          height: '80vh',
+          maxHeight: '80vh',
           boxSizing: 'border-box',
-          // border: "6px solid #8e24aa", // KEEP for debugging, Noticeable purple border
+          border: "6px solid #8e24aa", // KEEP for debugging, Noticeable purple border
         }}
       >
         {images &&
