@@ -4,7 +4,7 @@ import { Dialog } from 'primereact/dialog';
 import { Galleria } from 'primereact/galleria';
 import { Tooltip } from 'primereact/tooltip';
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { PhotoService } from './service/PhotoService';
 
@@ -24,10 +24,50 @@ export default function BasicDemo() {
   const [images, setImages] = useState(null);
   const [showDialog, setShowDialog] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const thumbnailBarRef = useRef(null);
 
   useEffect(() => {
     PhotoService.getImages().then((data) => setImages(data));
   }, []);
+
+  // Helper: detect desktop
+  const isDesktop = window.innerWidth > 900;
+
+  // Calculate how many thumbnails fit in 70vw with 8px gap
+  const THUMB_WIDTH = isDesktop ? 120 : 80; // px
+  const GAP = 8; // px
+  const MAX_WIDTH = 0.7 * window.innerWidth; // 70vw in px
+  const maxThumbnails = Math.max(1, Math.floor((MAX_WIDTH + GAP) / (THUMB_WIDTH + GAP)));
+
+  // Track the first visible thumbnail index for scrolling
+  const [thumbStart, setThumbStart] = useState(0);
+
+  // When selectedImage changes, scroll thumbnails to keep it in view
+  useEffect(() => {
+    if (!images || !selectedImage) return;
+    const idx = images.findIndex(img => img.itemImageSrc === selectedImage.itemImageSrc);
+    if (idx < thumbStart) {
+      setThumbStart(idx);
+    } else if (idx >= thumbStart + maxThumbnails) {
+      setThumbStart(idx - maxThumbnails + 1);
+    }
+    // Scroll the thumbnail bar to the selected thumbnail (for smooth UX)
+    if (thumbnailBarRef.current) {
+      const thumb = thumbnailBarRef.current.querySelector(`#thumb-${idx}`);
+      if (thumb) {
+        thumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+    }
+  }, [selectedImage, images, thumbStart, maxThumbnails]);
+
+  console.log(`Rendering: ${thumbStart} selectedImage: ${JSON.stringify(selectedImage)}`);
+  // Arrow navigation handlers
+  const handleLeft = () => {setThumbStart(s => Math.max(0, s - 1));};
+  const handleRight = () => {
+    console.log(`leng: ${images.length}, maxt: ${maxThumbnails}, tnStart: ${thumbStart}`);    
+    setThumbStart(s => Math.min(images.length - maxThumbnails, s + 1));
+    console.log(`tnStart: ${thumbStart}`);    
+  };
 
   // Main image view
   const itemTemplate = () => {
@@ -69,32 +109,43 @@ export default function BasicDemo() {
     );
   };
 
-  // Thumbnail template with tooltip and click handler
+  // Thumbnail template (with accessibility fix)
   const thumbnailTemplate = (item, index) => {
     const thumbId = `thumb-${index}`;
+    const isSelected = selectedImage && item.itemImageSrc === selectedImage.itemImageSrc;
     return (
       <React.Fragment key={thumbId}>
-        <img
+        <button
+          type="button"
           id={thumbId}
-          src={item.thumbnailImageSrc}
-          alt={item.alt}
-          title={item.title}
-          data-pr-tooltip={item.alt || item.title}
           style={{
-            border: '2px solid yellow',
+            padding: 0,
+            // background: isSelected ? '#f3e5f5' : 'none',
             margin: '2px',
             objectFit: 'contain',
-            maxHeight: '10vh',
             maxWidth: 120,
-            width: 'auto',
+            width: 120,
             height: 'auto',
             display: 'block',
             cursor: 'pointer',
+            // outline: isSelected ? '2px solid #8e24aa' : 'none',
           }}
-          tabIndex={thumbId}
+          tabIndex={0}
           onClick={() => setSelectedImage(item)}
-          onKeyDown={() => setSelectedImage(item)}
-        />
+          aria-label={item.alt || item.title}
+        >
+          <img
+            src={item.thumbnailImageSrc}
+            alt={item.alt}
+            style={{ 
+            border: isSelected ? '2px solid #8e24aa' : '2px solid yellow',
+              width: '100%', 
+              height: '100%', 
+              maxHeight: '7vh',
+              objectFit: 'contain' 
+            }}
+          />
+        </button>
         <Tooltip target={`#${thumbId}`} content={item.alt || item.title} />
       </React.Fragment>
     );
@@ -234,22 +285,65 @@ export default function BasicDemo() {
 
       {/* Thumbnail Bar Fixed at Bottom */}
       <div
+        ref={thumbnailBarRef}
         style={{
           width: '100%',
           minHeight: '7vh',
-          maxHeight: '12vh',
+          maxHeight: '15vh',
           background: '#222',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: 8,
+          gap: GAP,
           padding: 8,
           borderTop: '6px solid #8e24aa',
           boxSizing: 'border-box',
-          marginBottom: '1vh'
+          marginBottom: '1vh',
+          overflowX: 'auto',
         }}
       >
-        {images && images.map((img, idx) => thumbnailTemplate(img, idx))}
+        {thumbStart > 0 && (
+          <button
+            type="button"
+            style={{
+              background: 'none',
+              border: 'none',
+              color: '#fff',
+              fontSize: 28,
+              cursor: 'pointer',
+              marginRight: 8,
+              padding: '0 8px',
+              height: 48,
+            }}
+            onClick={handleLeft}
+            aria-label="Scroll thumbnails left"
+          >
+            {'<'}
+          </button>
+        )}
+        {images &&
+          images
+            .slice(thumbStart, thumbStart + maxThumbnails)
+            .map((img, idx) => thumbnailTemplate(img, thumbStart + idx))}
+        {images && thumbStart + maxThumbnails < images.length && (
+          <button
+            type="button"
+            style={{
+              background: 'none',
+              border: 'none',
+              color: '#fff',
+              fontSize: 28,
+              cursor: 'pointer',
+              marginLeft: 8,
+              padding: '0 8px',
+              height: 48,
+            }}
+            onClick={handleRight}
+            aria-label="Scroll thumbnails right"
+          >
+            {'>'}
+          </button>
+        )}
       </div>
 
       {/* Dialog for Forwarding Form */}
@@ -258,4 +352,4 @@ export default function BasicDemo() {
       </Dialog>
     </div>
   );
-} 
+}
