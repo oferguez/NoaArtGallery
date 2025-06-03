@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { Galleria } from 'primereact/galleria';
@@ -19,6 +20,7 @@ const ARTIST_PARAGRAPH =
   'Her work blends creativity and compassion, inspiring individuals and communities alike.';
 
 export default function BasicDemo() {
+
   const [images, setImages] = useState(null);
   const [showDialog, setShowDialog] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -28,7 +30,8 @@ export default function BasicDemo() {
   }, []);
 
   // Main image view
-  const itemTemplate = (item) => {
+  const itemTemplate = () => {
+    const item = selectedImage;
     if (!item) return null;
     return (
       <div
@@ -46,8 +49,8 @@ export default function BasicDemo() {
           background: '#fff',
           marginBottom: '1vh'
         }}
-        onClick={() => { setSelectedImage(item); setShowDialog(true); }}
-        onKeyDown={() => { setSelectedImage(item); setShowDialog(true); }}
+        onClick={() => { setShowDialog(true); }}
+        onKeyDown={() => { setShowDialog(true); }}
         title="Click to forward image to printing provider"
         role="button"
         tabIndex="0"
@@ -66,11 +69,11 @@ export default function BasicDemo() {
     );
   };
 
-  // Thumbnail template with tooltip
+  // Thumbnail template with tooltip and click handler
   const thumbnailTemplate = (item, index) => {
     const thumbId = `thumb-${index}`;
     return (
-      <>
+      <React.Fragment key={thumbId}>
         <img
           id={thumbId}
           src={item.thumbnailImageSrc}
@@ -85,11 +88,15 @@ export default function BasicDemo() {
             maxWidth: 120,
             width: 'auto',
             height: 'auto',
-            display: 'block'
+            display: 'block',
+            cursor: 'pointer',
           }}
+          tabIndex={thumbId}
+          onClick={() => setSelectedImage(item)}
+          onKeyDown={() => setSelectedImage(item)}
         />
         <Tooltip target={`#${thumbId}`} content={item.alt || item.title} />
-      </>
+      </React.Fragment>
     );
   };
 
@@ -158,9 +165,8 @@ export default function BasicDemo() {
           gap: 24,
           background: 'rgba(255,255,255,0.98)',
           textAlign: 'center',
-          // border: "6px solid rgb(43, 36, 170)", // KEEP for debugging, Noticeable border
           margin: '1vh',
-          overflow: 'hidden', // Prevent overflow of artist details
+          overflow: 'hidden',
         }}
       >
         <span style={{ fontWeight: 700, fontSize: 32, color: '#475569' }}>{ARTIST_NAME}</span>
@@ -188,24 +194,22 @@ export default function BasicDemo() {
           WebkitBoxOrient: 'vertical',
           whiteSpace: 'normal',
         }}
-        title={ARTIST_PARAGRAPH}
+          title={ARTIST_PARAGRAPH}
         >{ARTIST_PARAGRAPH}</span>
       </div>
 
-      {/* Gallery */}
+      {/* Main Image Area */}
       <div
-        className="card"
         style={{
           flex: 1,
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'stretch',
-          justifyContent: 'flex-end',
+          alignItems: 'center',
+          justifyContent: 'center',
           width: '100%',
-          height: '80vh',
-          maxHeight: '80vh',
+          background: '#fff',
+          border: '6px solid #8e24aa',
+          borderBottom: 'none',
           boxSizing: 'border-box',
-          border: "6px solid #8e24aa", // KEEP for debugging, Noticeable purple border
         }}
       >
         {images &&
@@ -213,26 +217,39 @@ export default function BasicDemo() {
             value={images}
             numVisible={5}
             style={{
-              maxHeight: '60vh',
+              width: '100%',
+              height: '100%',
+              maxHeight: '100%',
               maxWidth: '95vw',
-              margin: '0 auto'
+              margin: '0 auto',
+              background: 'transparent',
             }}
             item={itemTemplate}
-            thumbnail={thumbnailTemplate}
-            showThumbnails={true}
+            thumbnail={null}
+            showThumbnails={false}
             showIndicators={false}
-            thumbnailsPosition="bottom"
-            thumbnailsStyle={{
-              display: 'flex',
-              gap: 8,
-              minHeight: '7vh',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: '#222',
-              padding: 8,
-            }}
           />
         }
+      </div>
+
+      {/* Thumbnail Bar Fixed at Bottom */}
+      <div
+        style={{
+          width: '100%',
+          minHeight: '7vh',
+          maxHeight: '12vh',
+          background: '#222',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 8,
+          padding: 8,
+          borderTop: '6px solid #8e24aa',
+          boxSizing: 'border-box',
+          marginBottom: '1vh'
+        }}
+      >
+        {images && images.map((img, idx) => thumbnailTemplate(img, idx))}
       </div>
 
       {/* Dialog for Forwarding Form */}
@@ -241,4 +258,4 @@ export default function BasicDemo() {
       </Dialog>
     </div>
   );
-}
+} 
