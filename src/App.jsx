@@ -39,7 +39,7 @@ export default function BasicDemo() {
   const MAX_WIDTH = 0.7 * window.innerWidth; // 70vw in px
   const maxThumbnails = Math.max(1, Math.floor((MAX_WIDTH + GAP) / (THUMB_WIDTH + GAP)));
 
-  const currentIdx = (images && images.length > 0) ?   
+  const currentIdx = (images && images.length > 0) ?
     images.findIndex(img => img.itemImageSrc === selectedImage?.itemImageSrc) :
     0;
 
@@ -78,7 +78,7 @@ export default function BasicDemo() {
       }
 
       setSelectedImage(() => images[idx - 1]);
-      return (idx  === thumbStart) ? thumbStart - 1 : thumbStart;
+      return (idx === thumbStart) ? thumbStart - 1 : thumbStart;
     });
   };
 
@@ -93,10 +93,10 @@ export default function BasicDemo() {
 
       setSelectedImage(() => images[idx + 1]);
       const end = thumbStart + maxThumbnails - 1;
-      return (idx  === end) ? thumbStart + 1 : thumbStart;
+      return (idx === end) ? thumbStart + 1 : thumbStart;
     });
   };
- 
+
   // Main image view
   const itemTemplate = () => {
     const item = selectedImage;
@@ -330,50 +330,54 @@ export default function BasicDemo() {
           overflowX: 'auto',
         }}
       >
-        {currentIdx > 0 && (
-          <button
-            type="button"
-            style={{
-              background: 'none',
-              border: 'none',
-              color: '#fff',
-              fontSize: 28,
-              cursor: 'pointer',
-              marginRight: 8,
-              padding: '0 8px',
-              height: 48,
-            }}
-            onClick={handleLeft}
-            aria-label="Scroll thumbnails left"
-          >
-            {'<'}
-          </button>
-        )}
+
+        <button
+          type="button"
+          disabled={currentIdx === 0}
+          style={{
+            background: 'none',
+            border: 'none',
+            color: '#fff',
+            fontSize: 28,
+            cursor: currentIdx === 0 ? 'not-allowed' : 'pointer',
+            opacity: currentIdx === 0 ? 0.5 : 1,
+            marginRight: 8,
+            padding: '0 8px',
+            height: 48,
+          }}
+          onClick={handleLeft}
+          aria-label="Scroll thumbnails left"
+        >
+          {'<'}
+        </button>
+
 
         {images &&
           images
             .slice(thumbStart, thumbStart + maxThumbnails)
             .map((img, idx) => thumbnailTemplate(img, thumbStart + idx))}
 
-        {images && currentIdx < images.length - 1 && (
+        {images &&
           <button
             type="button"
+            disabled={currentIdx === images.length - 1}
             style={{
               background: 'none',
               border: 'none',
               color: '#fff',
               fontSize: 28,
-              cursor: 'pointer',
               marginLeft: 8,
               padding: '0 8px',
               height: 48,
+              opacity: currentIdx === images.length - 1 ? 0.5 : 1,
+              cursor: currentIdx === images.length - 1 ? 'not-allowed' : 'pointer',
             }}
             onClick={handleRight}
             aria-label="Scroll thumbnails right"
           >
             {'>'}
           </button>
-        )}
+        }
       </div>
 
       {/* Dialog for Forwarding Form */}
