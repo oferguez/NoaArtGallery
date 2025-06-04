@@ -39,12 +39,21 @@ export default function BasicDemo() {
   const MAX_WIDTH = 0.7 * window.innerWidth; // 70vw in px
   const maxThumbnails = Math.max(1, Math.floor((MAX_WIDTH + GAP) / (THUMB_WIDTH + GAP)));
 
+  const currentIdx = (images && images.length > 0) ?   
+    images.findIndex(img => img.itemImageSrc === selectedImage?.itemImageSrc) :
+    0;
+
   // Track the first visible thumbnail index for scrolling
   const [thumbStart, setThumbStart] = useState(0);
 
   // When selectedImage changes, scroll thumbnails to keep it in view
   useEffect(() => {
-    if (!images || !selectedImage) return;
+    if (!images || images.length === 0) return;
+    if (!selectedImage) {
+      console.log(`setSelectedImage(images[0]):`);
+      setSelectedImage(images[0]);
+      return; //todo: is this legit???
+    }
     const idx = images.findIndex(img => img.itemImageSrc === selectedImage.itemImageSrc);
     if (idx < thumbStart) {
       setThumbStart(idx);
@@ -60,15 +69,34 @@ export default function BasicDemo() {
     }
   }, [selectedImage, images, thumbStart, maxThumbnails]);
 
-  console.log(`Rendering: ${thumbStart} selectedImage: ${JSON.stringify(selectedImage)}`);
-  // Arrow navigation handlers
-  const handleLeft = () => {setThumbStart(s => Math.max(0, s - 1));};
-  const handleRight = () => {
-    console.log(`leng: ${images.length}, maxt: ${maxThumbnails}, tnStart: ${thumbStart}`);    
-    setThumbStart(s => Math.min(images.length - maxThumbnails, s + 1));
-    console.log(`tnStart: ${thumbStart}`);    
+  const handleLeft = () => {
+    setThumbStart(() => {
+      const idx = images.findIndex(img => img.itemImageSrc === selectedImage?.itemImageSrc);
+      if (idx === 0) {
+        console.warn(`handleLeft: end of thumbnail!!! pic ${idx}`);
+        return;
+      }
+
+      setSelectedImage(() => images[idx - 1]);
+      return (idx  === thumbStart) ? thumbStart - 1 : thumbStart;
+    });
   };
 
+
+  const handleRight = () => {
+    setThumbStart(() => {
+      const idx = images.findIndex(img => img.itemImageSrc === selectedImage?.itemImageSrc);
+      if (idx === images.length - 1) {
+        console.warn(`handleRight end of thumbnail!!! pic ${idx}`);
+        return;
+      }
+
+      setSelectedImage(() => images[idx + 1]);
+      const end = thumbStart + maxThumbnails - 1;
+      return (idx  === end) ? thumbStart + 1 : thumbStart;
+    });
+  };
+ 
   // Main image view
   const itemTemplate = () => {
     const item = selectedImage;
@@ -137,12 +165,12 @@ export default function BasicDemo() {
           <img
             src={item.thumbnailImageSrc}
             alt={item.alt}
-            style={{ 
-            border: isSelected ? '2px solid #8e24aa' : '2px solid yellow',
-              width: '100%', 
-              height: '100%', 
+            style={{
+              border: isSelected ? '2px solid #8e24aa' : '2px solid yellow',
+              width: '100%',
+              height: '100%',
               maxHeight: '7vh',
-              objectFit: 'contain' 
+              objectFit: 'contain'
             }}
           />
         </button>
@@ -302,7 +330,7 @@ export default function BasicDemo() {
           overflowX: 'auto',
         }}
       >
-        {thumbStart > 0 && (
+        {currentIdx > 0 && (
           <button
             type="button"
             style={{
@@ -321,11 +349,13 @@ export default function BasicDemo() {
             {'<'}
           </button>
         )}
+
         {images &&
           images
             .slice(thumbStart, thumbStart + maxThumbnails)
             .map((img, idx) => thumbnailTemplate(img, thumbStart + idx))}
-        {images && thumbStart + maxThumbnails < images.length && (
+
+        {images && currentIdx < images.length - 1 && (
           <button
             type="button"
             style={{
