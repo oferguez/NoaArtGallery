@@ -387,3 +387,10 @@ export default function BasicDemo() {
     </div>
   );
 }
+
+/*
+todo: refactoring
+
+  - currentIdx calculate once
+  - break to components 
+*/
