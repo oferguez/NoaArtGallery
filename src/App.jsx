@@ -89,7 +89,7 @@ export default function BasicDemo() {
   // Mock forwarding form
   const ForwardForm = ({ image, onHide }) => (
     <form style={{ display: "flex", flexDirection: "column", gap: "1rem", minWidth: 200 }}>
-      <h3>Forward to Printing Provider</h3>
+      <h3>Forward to Printing Provider: W={window.innerWidth} H={window.innerHeight}</h3>
       <div>
         <img src={image.itemImageSrc} alt={image.alt} style={{ maxWidth: 200, maxHeight: 120, border: "1px solid #ccc" }} />
       </div>
