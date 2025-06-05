@@ -422,4 +422,6 @@ todo: refactoring
   - break to components 
   - decide on one location for style. currently in main function, in template and some in css
   - handle eslint expectionw
+  - automation tests on PR
+  - content management tool
   */
