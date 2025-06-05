@@ -1,6 +1,6 @@
 ﻿## WIP deploys for testing
 
-[WIP on Netlify/](https://wip--noagallery.netlify.app/)
+[WIP on Netlify](https://wip--noagallery.netlify.app/)
 
 ## Main production build:
 
