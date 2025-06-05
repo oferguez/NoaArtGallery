@@ -417,6 +417,8 @@ export default function BasicDemo() {
 todo: refactoring
 
   - currentIdx calculate once
+  - arrow right and left on the keyboard to scrill thumbnail
+  - thumbnail Height in one variable
   - break to components 
   - decide on one location for style. currently in main function, in template and some in css
   - handle eslint expectionw
