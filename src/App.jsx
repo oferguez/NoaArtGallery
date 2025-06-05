@@ -392,4 +392,5 @@ todo: refactoring
 
   - currentIdx calculate once
   - break to components 
+  - decide on one location for style. currently in main function, in template and some in css
 */
