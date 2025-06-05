@@ -13,11 +13,14 @@ import './galleria-thumbbar.css';
 // Artist details
 const ARTIST_NAME = 'Noa Guez';
 const LOGO_SRC = '/logo.jpeg';
-const ARTIST_PARAGRAPH =
+const ARTIST_PARAGRAPH_EN =
   'Noa Guez is a dedicated artist with a background in arts studies, ' +
   'a wealth of experience leading vibrant community arts projects, ' +
   'and a deep commitment to arts therapy. ' +
   'Her work blends creativity and compassion, inspiring individuals and communities alike.';
+const ARTIST_PARAGRAPH_HE =
+  'נועה גז היא אמנית מסורה עם רקע בלימודי אמנות, ניסיון עשיר בהובלת פרויקטים קהילתיים תוססים, ומחויבות עמוקה לטיפול באמצעות אמנויות. יצירתה משלבת יצירתיות וחמלה, ומעוררת השראה ביחידים ובקהילות כאחד.';
+
 
 export default function BasicDemo() {
 
@@ -250,7 +253,29 @@ export default function BasicDemo() {
           overflow: 'hidden',
         }}
       >
-        <span style={{ fontWeight: 700, fontSize: 32, color: '#475569' }}>{ARTIST_NAME}</span>
+
+        <span style={{
+          maxWidth: 200,
+          minWidth: 100,
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          fontSize: '1.05rem',
+          display: '-webkit-box',
+          WebkitLineClamp: 4,
+          WebkitBoxOrient: 'vertical',
+          whiteSpace: 'normal',
+          textAlign: 'right',
+          direction: 'rtl'
+        }}
+          title={ARTIST_PARAGRAPH_HE}
+        >{ARTIST_PARAGRAPH_HE}</span>
+
+
+        <span
+          style={{ fontWeight: 700, fontSize: 32, color: '#475569' }}>
+          {ARTIST_NAME}
+        </span>
+
         <img
           src={LOGO_SRC}
           alt="Noa Guez Logo"
@@ -271,9 +296,10 @@ export default function BasicDemo() {
           WebkitLineClamp: 4,
           WebkitBoxOrient: 'vertical',
           whiteSpace: 'normal',
+          textAlign: 'left'
         }}
-          title={ARTIST_PARAGRAPH}
-        >{ARTIST_PARAGRAPH}</span>
+          title={ARTIST_PARAGRAPH_EN}
+        >{ARTIST_PARAGRAPH_EN}</span>
       </div>
 
       {/* Main Image Area */}
