@@ -146,9 +146,10 @@ export default function BasicDemo() {
         <button
           type="button"
           id={thumbId}
+          className="p-galleria-thumbnail-item"
           style={{
             padding: 0,
-            // background: isSelected ? '#f3e5f5' : 'none',
+            background: isSelected ? '#f3e5f5' : 'none',
             margin: '2px',
             objectFit: 'contain',
             maxWidth: 120,
@@ -165,11 +166,12 @@ export default function BasicDemo() {
           <img
             src={item.thumbnailImageSrc}
             alt={item.alt}
+            className="p-galleria-thumbnail-image"
             style={{
-              border: isSelected ? '2px solid #8e24aa' : '2px solid yellow',
+              background: isSelected ? '2px solid #8e24aa' : '2px solid yellow',
               width: '100%',
               height: '100%',
-              maxHeight: '7vh',
+              maxHeight: '10vh',
               objectFit: 'contain'
             }}
           />
@@ -255,11 +257,8 @@ export default function BasicDemo() {
           style={{
             width: 70,
             height: 70,
-            borderRadius: '50%',
             objectFit: 'cover',
-            border: '2px solid #bdbdbd',
             margin: '0 18px',
-            boxShadow: '0 2px 6px #0002'
           }}
         />
         <span style={{
@@ -286,7 +285,7 @@ export default function BasicDemo() {
           justifyContent: 'center',
           width: '100%',
           background: '#fff',
-          border: '6px solid #8e24aa',
+          // border: '6px solid #8e24aa', // KEEP for debugging
           borderBottom: 'none',
           boxSizing: 'border-box',
         }}
@@ -324,7 +323,7 @@ export default function BasicDemo() {
           justifyContent: 'center',
           gap: GAP,
           padding: 8,
-          borderTop: '6px solid #8e24aa',
+          // borderTop: '6px solid #8e24aa', // KEEP for debugging
           boxSizing: 'border-box',
           marginBottom: '1vh',
           overflowX: 'auto',
