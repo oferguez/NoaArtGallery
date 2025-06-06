@@ -8,12 +8,18 @@ import * as PhotoService from './service/PhotoService';
 
 // Mock PrimeReact components for predictable tests
 vi.mock('primereact/galleria', () => {
-  const Galleria = ({ item }) => <div data-testid="galleria">{item && item()}</div>;
+  const Galleria = ({ item }) => (
+    <div data-testid="galleria">
+      {/* Render the item, which should be an <img> */}
+      {item ? item() : null}
+    </div>
+  );
   Galleria.propTypes = {
     item: PropTypes.func,
   };
   return { Galleria };
 });
+
 vi.mock('primereact/dialog', () => {
   const Dialog = ({ visible, children }) => (visible ? <div>{children}</div> : null);
   Dialog.propTypes = {
