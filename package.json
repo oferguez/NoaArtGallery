@@ -1,6 +1,7 @@
 {
+  
   "name": "primereact_demo",
-  "description": "**** PrimeReact is an open source UI library for React featuring a rich set of 80+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.",
+  "description": "Noa’s Art Gallery showcases the vibrant and expressive works of Noa Guez, blending creativity, community, and therapeutic art to inspire individuals and groups alike.",
   "type": "module",
   "scripts": {
     "dev": "vite",
