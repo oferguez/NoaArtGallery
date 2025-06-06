@@ -149,7 +149,6 @@ export default function BasicDemo() {
         <button
           type="button"
           id={thumbId}
-          className="p-galleria-thumbnail-item"
           style={{
             padding: 0,
             background: isSelected ? '#f3e5f5' : 'none',
