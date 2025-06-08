@@ -56,8 +56,14 @@ function setup() {
 
 // Helper to wait until images are loaded and first image displayed
 async function waitForImages() {
-  await waitFor(() => expect(screen.getByRole('img', { name: /description for image 1/i })).toBeInTheDocument());
+  await waitFor(() =>
+    expect(
+      within(screen.getByTestId('galleria'))
+        .getByRole('img', { name: /description for image 1/i })
+    ).toBeInTheDocument()
+  );
 }
+
 
 test('loads artist details and selected image on start', async () => {
   setup();
