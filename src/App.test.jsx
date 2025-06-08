@@ -1,18 +1,40 @@
 import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import PropTypes from 'prop-types';
+import { vi } from 'vitest';
+
 import App from './App';
 import * as PhotoService from './service/PhotoService';
 
 // Mock PrimeReact components for predictable tests
-vi.mock('primereact/galleria', () => ({
-  Galleria: ({ item }) => <div data-testid="galleria">{item && item()}</div>,
-}));
-vi.mock('primereact/dialog', () => ({
-  Dialog: ({ visible, children }) => (visible ? <div>{children}</div> : null),
-}));
-vi.mock('primereact/button', () => ({
-  Button: ({ label, ...rest }) => <button {...rest}>{label}</button>,
-}));
+vi.mock('primereact/galleria', () => {
+  const Galleria = ({ item }) => (
+    <div data-testid="galleria">
+      {/* Render the item, which should be an <img> */}
+      {item ? item() : null}
+    </div>
+  );
+  Galleria.propTypes = {
+    item: PropTypes.func,
+  };
+  return { Galleria };
+});
+
+vi.mock('primereact/dialog', () => {
+  const Dialog = ({ visible, children }) => (visible ? <div>{children}</div> : null);
+  Dialog.propTypes = {
+    visible: PropTypes.bool,
+    children: PropTypes.node,
+  };
+  return { Dialog };
+});
+vi.mock('primereact/button', () => {
+  const Button = ({ label, ...rest }) => <button {...rest}>{label}</button>;
+  Button.propTypes = {
+    label: PropTypes.node,
+  };
+  return { Button };
+});
 vi.mock('primereact/tooltip', () => ({ Tooltip: () => null }));
 
 // mock PhotoService to return known images
@@ -34,8 +56,14 @@ function setup() {
 
 // Helper to wait until images are loaded and first image displayed
 async function waitForImages() {
-  await waitFor(() => expect(screen.getByRole('img', { name: /description for image 1/i })).toBeInTheDocument());
+  await waitFor(() =>
+    expect(
+      within(screen.getByTestId('galleria'))
+        .getByRole('img', { name: /description for image 1/i })
+    ).toBeInTheDocument()
+  );
 }
+
 
 test('loads artist details and selected image on start', async () => {
   setup();
