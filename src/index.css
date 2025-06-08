@@ -12,3 +12,205 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+/* Application layout */
+.app-container {
+    min-height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: #fafafa;
+}
+
+.top-section {
+    height: 10vh;
+    min-height: 90px;
+    max-height: 10vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    background: rgba(255, 255, 255, 0.98);
+    text-align: center;
+    margin: 1vh;
+    overflow: hidden;
+}
+
+.artist-bio {
+    max-width: 200px;
+    min-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.05rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+}
+
+.artist-bio.rtl {
+    text-align: right;
+    direction: rtl;
+}
+
+.artist-bio.ltr {
+    text-align: left;
+}
+
+.artist-name {
+    font-weight: 700;
+    font-size: 32px;
+    color: #475569;
+}
+
+.artist-logo {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    margin: 0 18px;
+}
+
+.main-image-area {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: #fff;
+    border-bottom: none;
+    box-sizing: border-box;
+}
+
+.main-image-wrapper {
+    width: 100%;
+    height: 100%;
+    max-height: 60vh;
+    max-width: 70vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    background: #fff;
+    margin-bottom: 1vh;
+}
+
+.main-image-wrapper img {
+    max-height: 60vh;
+    max-width: 70vw;
+    object-fit: contain;
+    display: flex;
+}
+
+.thumbnail-bar {
+    width: 100%;
+    min-height: 7vh;
+    max-height: 15vh;
+    background: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px;
+    box-sizing: border-box;
+    margin-bottom: 1vh;
+    overflow-x: auto;
+}
+
+.thumb-nav {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 28px;
+    padding: 0 8px;
+    height: 48px;
+}
+
+.thumb-nav-left {
+    margin-right: 8px;
+}
+
+.thumb-nav-right {
+    margin-left: 8px;
+}
+
+.thumb-nav:not(:disabled) {
+    cursor: pointer;
+}
+
+.thumb-nav:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.thumbnail-button {
+    padding: 0;
+    margin: 2px;
+    object-fit: contain;
+    max-width: 120px;
+    width: 120px;
+    height: auto;
+    display: block;
+    cursor: pointer;
+}
+
+.thumbnail-selected {
+    background: #f3e5f5;
+}
+
+.thumbnail-button img {
+    width: 100%;
+    height: 100%;
+    max-height: 10vh;
+    object-fit: contain;
+}
+
+/* Forward form */
+.forward-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 200px;
+}
+
+.forward-form img {
+    max-width: 200px;
+    max-height: 120px;
+    border: 1px solid #ccc;
+}
+
+.forward-form select,
+.forward-form input[type="number"],
+.forward-form input[type="email"] {
+    margin-left: 8px;
+}
+
+.forward-form input[type="number"] {
+    width: 60px;
+}
+
+.forward-form input[type="email"] {
+    width: 180px;
+}
+
+.forward-form .actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.forward-dialog {
+    width: 92vw;
+    max-width: 400px;
+}
+
+.galleria-container {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    max-width: 95vw;
+    margin: 0 auto;
+    background: transparent;
+}

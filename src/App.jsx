@@ -8,7 +8,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import { PhotoService } from './service/PhotoService';
 
-import './galleria-thumbbar.css';
+
 
 // Artist details
 const ARTIST_NAME = 'Noa Guez';
@@ -106,36 +106,14 @@ export default function BasicDemo() {
     if (!item) return null;
     return (
       <div
-        style={{
-          width: '100%',
-          height: '100%',
-          maxHeight: '60vh',
-          maxWidth: '70vw',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-          cursor: 'pointer',
-          background: '#fff',
-          marginBottom: '1vh'
-        }}
+        className="main-image-wrapper"
         onClick={() => { setShowDialog(true); }}
         onKeyDown={() => { setShowDialog(true); }}
         title="Click to forward image to printing provider"
         role="button"
         tabIndex="0"
       >
-        <img
-          src={item.itemImageSrc}
-          alt={item.alt}
-          style={{
-            maxHeight: '60vh',
-            maxWidth: '70vw',
-            objectFit: 'contain',
-            display: 'flex'
-          }}
-        />
+        <img src={item.itemImageSrc} alt={item.alt} />
       </div>
     );
   };
@@ -149,18 +127,7 @@ export default function BasicDemo() {
         <button
           type="button"
           id={thumbId}
-          style={{
-            padding: 0,
-            background: isSelected ? '#f3e5f5' : 'none',
-            margin: '2px',
-            objectFit: 'contain',
-            maxWidth: 120,
-            width: 120,
-            height: 'auto',
-            display: 'block',
-            cursor: 'pointer',
-            // outline: isSelected ? '2px solid #8e24aa' : 'none',
-          }}
+          className={`thumbnail-button${isSelected ? ' thumbnail-selected' : ''}`}
           tabIndex={0}
           onClick={() => setSelectedImage(item)}
           aria-label={item.alt || item.title}
@@ -168,14 +135,7 @@ export default function BasicDemo() {
           <img
             src={item.thumbnailImageSrc}
             alt={item.alt}
-            className="p-galleria-thumbnail-image"
-            style={{
-              background: isSelected ? '2px solid #8e24aa' : '2px solid yellow',
-              width: '100%',
-              height: '100%',
-              maxHeight: '10vh',
-              objectFit: 'contain'
-            }}
+            className="thumbnail-image"
           />
         </button>
         <Tooltip target={`#${thumbId}`} content={item.alt || item.title} />
@@ -186,14 +146,14 @@ export default function BasicDemo() {
   // Mock forwarding form
 
   const ForwardForm = ({ image, onHide }) => (
-    <form style={{ display: 'flex', flexDirection: 'column', gap: '1rem', minWidth: 200 }}>
+    <form className="forward-form">
       <h3>Forward to Printing Provider</h3>
       <div>
-        <img src={image.itemImageSrc} alt={image.alt} style={{ maxWidth: 200, maxHeight: 120, border: '1px solid #ccc' }} />
+        <img src={image.itemImageSrc} alt={image.alt} />
       </div>
       <label>
         Select Print Size:
-        <select style={{ marginLeft: 8 }}>
+        <select>
           <option>20x30 cm</option>
           <option>30x40 cm</option>
           <option>50x70 cm</option>
@@ -201,13 +161,13 @@ export default function BasicDemo() {
       </label>
       <label>
         Quantity:
-        <input type="number" min={1} defaultValue={1} style={{ marginLeft: 8, width: 60 }} />
+        <input type="number" min={1} defaultValue={1} />
       </label>
       <label>
         Your Email:
-        <input type="email" required style={{ marginLeft: 8, width: 180 }} />
+        <input type="email" required />
       </label>
-      <div style={{ display: 'flex', gap: '1rem' }}>
+      <div className="actions">
         <Button label="Submit" type="submit" />
         <Button label="Cancel" className="p-button-secondary" onClick={onHide} type="button" />
       </div>
@@ -225,108 +185,26 @@ export default function BasicDemo() {
   };
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        maxHeight: '100vh',
-        overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'column',
-        background: '#fafafa'
-      }}
-    >
+    <div className="app-container">
       {/* Top Section */}
-      <div
-        style={{
-          height: '10vh',
-          minHeight: 90,
-          maxHeight: '10vh',
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: 24,
-          background: 'rgba(255,255,255,0.98)',
-          textAlign: 'center',
-          margin: '1vh',
-          overflow: 'hidden',
-        }}
-      >
+      <div className="top-section">
 
-        <span style={{
-          maxWidth: 200,
-          minWidth: 100,
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-          fontSize: '1.05rem',
-          display: '-webkit-box',
-          WebkitLineClamp: 4,
-          WebkitBoxOrient: 'vertical',
-          whiteSpace: 'normal',
-          textAlign: 'right',
-          direction: 'rtl'
-        }}
-          title={ARTIST_PARAGRAPH_HE}
-        >{ARTIST_PARAGRAPH_HE}</span>
+        <span className="artist-bio rtl" title={ARTIST_PARAGRAPH_HE}>{ARTIST_PARAGRAPH_HE}</span>
 
 
-        <span
-          style={{ fontWeight: 700, fontSize: 32, color: '#475569' }}>
-          {ARTIST_NAME}
-        </span>
+        <span className="artist-name">{ARTIST_NAME}</span>
 
-        <img
-          src={LOGO_SRC}
-          alt="Noa Guez Logo"
-          style={{
-            width: 70,
-            height: 70,
-            objectFit: 'cover',
-            margin: '0 18px',
-          }}
-        />
-        <span style={{
-          maxWidth: 200,
-          minWidth: 100,
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-          fontSize: '1.05rem',
-          display: '-webkit-box',
-          WebkitLineClamp: 4,
-          WebkitBoxOrient: 'vertical',
-          whiteSpace: 'normal',
-          textAlign: 'left'
-        }}
-          title={ARTIST_PARAGRAPH_EN}
-        >{ARTIST_PARAGRAPH_EN}</span>
+        <img src={LOGO_SRC} alt="Noa Guez Logo" className="artist-logo" />
+        <span className="artist-bio ltr" title={ARTIST_PARAGRAPH_EN}>{ARTIST_PARAGRAPH_EN}</span>
       </div>
 
       {/* Main Image Area */}
-      <div
-        style={{
-          flex: 1,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '100%',
-          background: '#fff',
-          // border: '6px solid #8e24aa', // KEEP for debugging
-          borderBottom: 'none',
-          boxSizing: 'border-box',
-        }}
-      >
+      <div className="main-image-area">
         {images &&
           <Galleria
             value={images}
             numVisible={5}
-            style={{
-              width: '100%',
-              height: '100%',
-              maxHeight: '100%',
-              maxWidth: '95vw',
-              margin: '0 auto',
-              background: 'transparent',
-            }}
+            className="galleria-container"
             item={itemTemplate}
             thumbnail={null}
             showThumbnails={false}
@@ -336,39 +214,12 @@ export default function BasicDemo() {
       </div>
 
       {/* Thumbnail Bar Fixed at Bottom */}
-      <div
-        ref={thumbnailBarRef}
-        style={{
-          width: '100%',
-          minHeight: '7vh',
-          maxHeight: '15vh',
-          background: '#222',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: GAP,
-          padding: 8,
-          // borderTop: '6px solid #8e24aa', // KEEP for debugging
-          boxSizing: 'border-box',
-          marginBottom: '1vh',
-          overflowX: 'auto',
-        }}
-      >
+      <div ref={thumbnailBarRef} className="thumbnail-bar">
 
         <button
           type="button"
           disabled={currentIdx === 0}
-          style={{
-            background: 'none',
-            border: 'none',
-            color: '#fff',
-            fontSize: 28,
-            cursor: currentIdx === 0 ? 'not-allowed' : 'pointer',
-            opacity: currentIdx === 0 ? 0.5 : 1,
-            marginRight: 8,
-            padding: '0 8px',
-            height: 48,
-          }}
+          className="thumb-nav thumb-nav-left"
           onClick={handleLeft}
           aria-label="Scroll thumbnails left"
         >
@@ -385,17 +236,7 @@ export default function BasicDemo() {
           <button
             type="button"
             disabled={currentIdx === images.length - 1}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: '#fff',
-              fontSize: 28,
-              marginLeft: 8,
-              padding: '0 8px',
-              height: 48,
-              opacity: currentIdx === images.length - 1 ? 0.5 : 1,
-              cursor: currentIdx === images.length - 1 ? 'not-allowed' : 'pointer',
-            }}
+            className="thumb-nav thumb-nav-right"
             onClick={handleRight}
             aria-label="Scroll thumbnails right"
           >
@@ -405,7 +246,7 @@ export default function BasicDemo() {
       </div>
 
       {/* Dialog for Forwarding Form */}
-      <Dialog header="Forward Image to Print Provider" visible={showDialog} style={{ width: '92vw', maxWidth: 400 }} modal onHide={() => setShowDialog(false)}>
+      <Dialog header="Forward Image to Print Provider" visible={showDialog} className="forward-dialog" modal onHide={() => setShowDialog(false)}>
         {selectedImage && <ForwardForm image={selectedImage} onHide={() => setShowDialog(false)} />}
       </Dialog>
     </div>

@@ -74,10 +74,10 @@ test('loads artist details and selected image on start', async () => {
   expect(mainImage).toBeInTheDocument();
 });
 
-test('root container prevents overflow', () => {
+test('root container has layout class', () => {
   const { container } = render(<App />);
   const rootDiv = container.firstChild;
-  expect(rootDiv).toHaveStyle({ overflow: 'hidden' });
+  expect(rootDiv.classList.contains('app-container')).toBe(true);
 });
 
 test('clicking thumbnail updates main image', async () => {
