@@ -15,12 +15,7 @@ module.exports = {
     'plugin:jsx-a11y/recommended',
     'plugin:import/recommended',
   ],
-  plugins: [
-    'react',
-    'react-hooks',
-    'jsx-a11y',
-    'import',
-  ],
+  plugins: ['react', 'react-hooks', 'jsx-a11y', 'import'],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
@@ -46,31 +41,41 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'jsx-quotes': ['warn', 'prefer-double'],
-    'import/order': ['warn', {
-      groups: [
-        'builtin',
-        'external',
-        'internal',
-        'parent',
-        'sibling',
-        'index',
-        'object',
-        'type',
-      ],
-      'newlines-between': 'always',
-      alphabetize: {
-        order: 'asc',
-        caseInsensitive: true,
+    'import/order': [
+      'warn',
+      {
+        groups: [
+          'builtin',
+          'external',
+          'internal',
+          'parent',
+          'sibling',
+          'index',
+          'object',
+          'type',
+        ],
+        'newlines-between': 'always',
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
       },
-    }],
+    ],
     'import/no-unresolved': 'off',
-    'no-unused-vars': ['warn', {
-      argsIgnorePattern: '^_',
-    }],
-    'semi': ['warn', 'always'],
-    'quotes': ['warn', 'single', {
-      avoidEscape: true,
-      allowTemplateLiterals: true,
-    }],
+    'no-unused-vars': [
+      'warn',
+      {
+        argsIgnorePattern: '^_',
+      },
+    ],
+    semi: ['warn', 'always'],
+    quotes: [
+      'warn',
+      'single',
+      {
+        avoidEscape: true,
+        allowTemplateLiterals: true,
+      },
+    ],
   },
 };
