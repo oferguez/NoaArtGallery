@@ -214,3 +214,21 @@ body {
   margin: 0 auto;
   background: transparent;
 }
+
+/* Example with flex on the parent */
+@media (min-width: 800px) {
+  .top-section {
+    display: flex;
+  }
+  span.artist-bio {
+    flex-grow: 1; /* This will make it take up available space */
+    width: auto; /* Ensure width is not fixed */
+    max-width: 30vw; 
+  }
+  span.artist-name {
+    max-width: 10vw; 
+  }
+  span.artist-logo {
+    max-width: 10vw; 
+  }
+}
