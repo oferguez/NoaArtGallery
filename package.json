@@ -1,5 +1,4 @@
 {
-  
   "name": "primereact_demo",
   "description": "Noa’s Art Gallery showcases the vibrant and expressive works of Noa Guez, blending creativity, community, and therapeutic art to inspire individuals and groups alike.",
   "type": "module",
@@ -9,7 +8,8 @@
     "preview": "vite preview",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "vitest run",
-    "test:debug": "vitest --run --inspect-brk --no-file-parallelism"
+    "test:debug": "vitest --run --inspect-brk --no-file-parallelism",
+     "format": "prettier --write ."
   },
   "main": "src/main.jsx",
   "keywords": [
@@ -40,6 +40,7 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "jsdom": "^26.1.0",
+    "prettier": "^3.5.3",
     "vitest": "^3.2.2"
   }
 }
