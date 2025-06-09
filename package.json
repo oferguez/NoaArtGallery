@@ -9,7 +9,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "vitest run",
     "test:debug": "vitest --run --inspect-brk --no-file-parallelism",
-     "format": "prettier --write ."
+    "format": "prettier --write ."
   },
   "main": "src/main.jsx",
   "keywords": [
