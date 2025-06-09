@@ -23,6 +23,12 @@ body {
   background: #fafafa;
 }
 
+@media (max-width: 800px) {
+  .app-container {
+    max-height: 100dvh;
+  }
+}
+
 .top-section {
   height: 10vh;
   min-height: 90px;
@@ -240,10 +246,4 @@ body {
     max-height: 60vh;
   }
 } */
-
-@media (max-width: 800px) {
-  .container {
-    height: 100dvh;
-  }
-}
 
