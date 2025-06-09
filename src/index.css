@@ -32,7 +32,7 @@ body {
   .main-image-wrapper,
   .main-image-wrapper img {
     max-height: 60svh;
-    object-position: center;
+    object-position: 50% 25%;
   }
 }
 
