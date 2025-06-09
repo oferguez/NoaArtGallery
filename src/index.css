@@ -29,12 +29,17 @@ body {
     min-height: 100svh;
     max-height: 100svh;
   }
-  .main-image-wrapper,
-  .main-image-wrapper img {
+  .main-image-wrapper {
     max-height: 60svh;
+  }
+
+  .main-image-wrapper img {
     object-position: 50% 25%;
+    background-color: aquamarine;
   }
 }
+
+
 
 .top-section {
   height: 10vh;
