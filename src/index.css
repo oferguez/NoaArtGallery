@@ -215,7 +215,7 @@ body {
   background: transparent;
 }
 
-/* Example with flex on the parent */
+/* desktop override */
 @media (min-width: 800px) {
   .top-section {
     display: flex;
@@ -232,3 +232,18 @@ body {
     max-width: 10vw; 
   }
 }
+
+/* mobile override */
+/* @media (max-width: 800px) {
+  .main-image-area,
+  .main-image-area img {
+    max-height: 60vh;
+  }
+} */
+
+@media (max-width: 800px) {
+  .container {
+    height: 100dvh;
+  }
+}
+
