@@ -29,6 +29,11 @@ body {
     min-height: 100svh;
     max-height: 100svh;
   }
+  .main-image-wrapper,
+  .main-image-wrapper img {
+    max-height: 60svh;
+    object-position: center;
+  }
 }
 
 .top-section {
