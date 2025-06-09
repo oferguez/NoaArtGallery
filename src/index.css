@@ -215,7 +215,6 @@ body {
   background: transparent;
 }
 
-/* Example with flex on the parent */
 @media (min-width: 800px) {
   .top-section {
     display: flex;
