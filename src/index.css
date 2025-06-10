@@ -101,14 +101,6 @@ body {
   box-sizing: border-box;
 }
 
-.main-image-area > * {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
 .main-image-wrapper {
   width: 100%;
   height: 100%;
@@ -232,6 +224,16 @@ body {
   max-width: 400px;
 }
 
+/* .main-image-area > * {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+ */
+
+
 .galleria-container {
   width: 100%;
   height: 100%;
@@ -239,6 +241,12 @@ body {
   max-width: 95vw;
   margin: 0 auto;
   background: transparent;
+
+  /* fix for mobile display to have the image centered vertically*/
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 /* desktop override */
