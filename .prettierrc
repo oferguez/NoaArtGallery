@@ -7,5 +7,6 @@
   "proseWrap": "preserve",
   "singleQuote": true,
   "semi": true,
-  "bracketSameLine": false
+  "bracketSameLine": false,
+  "endOfLine": ""
 }

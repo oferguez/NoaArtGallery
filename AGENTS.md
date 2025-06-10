@@ -5,7 +5,7 @@
 - **Write production-quality code**: All code must be robust, efficient, and ready for use in real-world systems.
 - **Prioritize clarity and readability**: Favor simple, clear code over clever or “hacky” solutions. Use clear naming, comments where needed, and logical structure.
 - **Ensure testability**: Code should be easy to unit test. Prefer pure functions, minimize side effects, and avoid hard-coding dependencies.
-- **Prefer the simplest working solution**: Avoid unnecessary abstraction, indirection, or premature optimization. Write the minimal code necessary to solve the problem *well*.
+- **Prefer the simplest working solution**: Avoid unnecessary abstraction, indirection, or premature optimization. Write the minimal code necessary to solve the problem _well_.
 
 ## Formatting and Documentation
 
@@ -15,18 +15,18 @@
 ## Application-Specific Best Practices
 
 - Always apply best practices relevant to the type of application (e.g., web, desktop, API, CLI, etc.).
-    - For web apps: Ensure proper separation of concerns (controllers, services, repositories), use dependency injection, validate user input, protect against common vulnerabilities (XSS, CSRF, etc.), and follow RESTful conventions for APIs.
-    - For desktop: Use MVVM/MVC where appropriate, separate UI and logic, handle errors gracefully.
-    - For libraries: Provide clear interfaces, minimize breaking changes, write good public documentation.
+  - For web apps: Ensure proper separation of concerns (controllers, services, repositories), use dependency injection, validate user input, protect against common vulnerabilities (XSS, CSRF, etc.), and follow RESTful conventions for APIs.
+  - For desktop: Use MVVM/MVC where appropriate, separate UI and logic, handle errors gracefully.
+  - For libraries: Provide clear interfaces, minimize breaking changes, write good public documentation.
 - If unsure about the best practice, explain options and reference established community guidelines.
 
 ## When Implementing Features or Fixes
 
 - Always choose the most straightforward solution that meets the requirements.
 - If the solution requires major refactoring or introduces significant complexity:
-    - **Pause** and clearly warn in your response.
-    - **Explain** why a simpler solution isn’t feasible in this case.
-    - **Outline** the risks or trade-offs if complexity is unavoidable.
+  - **Pause** and clearly warn in your response.
+  - **Explain** why a simpler solution isn’t feasible in this case.
+  - **Outline** the risks or trade-offs if complexity is unavoidable.
 
 ## Code Style
 

@@ -221,7 +221,7 @@ body {
   span.artist-bio {
     flex-grow: 1; /* This will make it take up available space */
     width: auto; /* Ensure width is not fixed */
-    max-width: 20vw; 
+    max-width: 20vw;
   }
 }
 
@@ -233,4 +233,3 @@ body {
     max-height: 100svh;
   }
 }
-
