@@ -42,7 +42,6 @@ body {
   max-width: 200px;
   min-width: 100px;
   overflow: hidden;
-  text-overflow: ellipsis;
   font-size: 1.05rem;
   display: -webkit-box;
   -webkit-line-clamp: 4;
@@ -102,7 +101,6 @@ body {
   max-height: 60vh;
   max-width: 70vw;
   object-fit: contain;
-  display: flex;
 }
 
 .thumbnail-bar {
@@ -115,7 +113,6 @@ body {
   justify-content: center;
   gap: 8px;
   padding: 8px;
-  box-sizing: border-box;
   margin-bottom: 1vh;
   overflow-x: auto;
 }
@@ -150,8 +147,6 @@ body {
   padding: 0;
   margin: 2px;
   object-fit: contain;
-  max-width: 120px;
-  width: 120px;
   height: auto;
   display: block;
   cursor: pointer;
@@ -213,22 +208,28 @@ body {
   max-width: 95vw;
   margin: 0 auto;
   background: transparent;
+
+  /* fix for mobile display to have the image centered vertically*/
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Example with flex on the parent */
+/* desktop override */
 @media (min-width: 800px) {
-  .top-section {
-    display: flex;
-  }
   span.artist-bio {
     flex-grow: 1; /* This will make it take up available space */
     width: auto; /* Ensure width is not fixed */
-    max-width: 30vw; 
+    max-width: 20vw;
   }
-  span.artist-name {
-    max-width: 10vw; 
-  }
-  span.artist-logo {
-    max-width: 10vw; 
+}
+
+/* mobile override */
+@media (max-width: 800px) {
+  .app-container {
+    height: 100svh;
+    min-height: 100svh;
+    max-height: 100svh;
   }
 }
