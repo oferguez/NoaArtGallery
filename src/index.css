@@ -23,24 +23,6 @@ body {
   background: #fafafa;
 }
 
-@media (max-width: 800px) {
-  .app-container {
-    height: 100svh;
-    min-height: 100svh;
-    max-height: 100svh;
-  }
-  /* .main-image-wrapper
-    max-height: 60svh;
-    background-color: aquamarine;
-  } */
-
-  /* .main-image-wrapper img {
-    object-position: 50% 25%;
-  } */
-}
-
-
-
 .top-section {
   height: 10vh;
   min-height: 90px;
@@ -60,7 +42,6 @@ body {
   max-width: 200px;
   min-width: 100px;
   overflow: hidden;
-  text-overflow: ellipsis;
   font-size: 1.05rem;
   display: -webkit-box;
   -webkit-line-clamp: 4;
@@ -120,7 +101,6 @@ body {
   max-height: 60vh;
   max-width: 70vw;
   object-fit: contain;
-  display: flex;
 }
 
 .thumbnail-bar {
@@ -133,7 +113,6 @@ body {
   justify-content: center;
   gap: 8px;
   padding: 8px;
-  box-sizing: border-box;
   margin-bottom: 1vh;
   overflow-x: auto;
 }
@@ -224,16 +203,6 @@ body {
   max-width: 400px;
 }
 
-/* .main-image-area > * {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
- */
-
-
 .galleria-container {
   width: 100%;
   height: 100%;
@@ -257,7 +226,7 @@ body {
   span.artist-bio {
     flex-grow: 1; /* This will make it take up available space */
     width: auto; /* Ensure width is not fixed */
-    max-width: 30vw; 
+    max-width: 20vw; 
   }
   span.artist-name {
     max-width: 10vw; 
@@ -268,10 +237,11 @@ body {
 }
 
 /* mobile override */
-/* @media (max-width: 800px) {
-  .main-image-area,
-  .main-image-area img {
-    max-height: 60vh;
+@media (max-width: 800px) {
+  .app-container {
+    height: 100svh;
+    min-height: 100svh;
+    max-height: 100svh;
   }
-} */
+}
 
