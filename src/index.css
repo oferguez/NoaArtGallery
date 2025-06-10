@@ -147,8 +147,6 @@ body {
   padding: 0;
   margin: 2px;
   object-fit: contain;
-  max-width: 120px;
-  width: 120px;
   height: auto;
   display: block;
   cursor: pointer;
@@ -220,19 +218,10 @@ body {
 
 /* desktop override */
 @media (min-width: 800px) {
-  .top-section {
-    display: flex;
-  }
   span.artist-bio {
     flex-grow: 1; /* This will make it take up available space */
     width: auto; /* Ensure width is not fixed */
     max-width: 20vw; 
-  }
-  span.artist-name {
-    max-width: 10vw; 
-  }
-  span.artist-logo {
-    max-width: 10vw; 
   }
 }
 
