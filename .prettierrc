@@ -8,5 +8,5 @@
   "singleQuote": true,
   "semi": true,
   "bracketSameLine": false,
-  "endOfLine": ""
+  "endOfLine": "auto"
 }
